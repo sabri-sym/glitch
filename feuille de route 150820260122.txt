@@ -1,0 +1,33 @@
+1. Interaction vocale mains libres (STT Continu + VAD)
+Pour ne plus toucher au clavier ni au micro :
+
+Silero VAD (Voice Activity Detection) : Détecte quand tu parles et quand tu t'arrêtes, sans devoir cliquer sur un bouton.
+
+Whisper local (faster-whisper) : Transcrit ta voix instantanément en texte sur la machine dès qu'un silence est détecté.
+
+2. Boucle de raisonnement autonome (ReAct Agent)
+Aujourd'hui, GLITCH fait une réponse pour une question. Pour réaliser un projet complet (ex : app Forex ou IA cognitive) :
+
+Function Calling / Tool Use : GLITCH doit pouvoir enchaîner plusieurs actions de lui-même sans te redemander la main à chaque étape.
+
+Cycle d'exécution :
+
+Réflexion (ex : « Pour l'app Forex, il me faut l'API Yahoo Finance »).
+
+Action (Télécharger le package Python via tools.py).
+
+Test (Lancer le script dans workspace/).
+
+Correction (Lire le traceback en cas d'erreur et corriger le code).
+
+Retour vocal (Te faire un résumé à voix haute).
+
+3. Avatar animé synchronisé (Frontend)
+Pour donner vie à l'interface :
+
+Synchro audio-réactive : Récupération de l'onde sonore de la synthèse vocale (Web Audio API dans l'interface) pour animer la bouche ou les yeux de l'avatar en temps réel pendant que Piper parle.
+
+Rendus possibles : Un composant Canvas/WebGL (ou une image réactive en CSS / Live2D) qui bascule entre les états Écoute, Réflexion et Parole.
+
+4. Environnement d'exécution sécurisé (workspace/)
+Toutes les opérations de fichiers, téléchargements et exécutions de commandes restent strictement confinée dans le dossier autorisé (workspace/), évitant toute action hors périmètre sur ton PC.

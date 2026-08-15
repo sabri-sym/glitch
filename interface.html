@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLITCH OS - Hands Free Interface</title>
+    <style>
+        :root {
+            --bg-gradient: radial-gradient(circle at 20% 20%, #0f172a, #020617 90%);
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --mic-active: #ef4444;
+            --speaking: #10b981;
+            --thinking: #a855f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+        body { 
+            background: var(--bg-gradient); 
+            color: var(--text); 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden;
+        }
+
+        .sidebar { 
+            width: 300px; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 24px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            border-right: 1px solid var(--glass-border); 
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .brand-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            gap: 12px;
+        }
+
+        .avatar-core {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, rgba(15,23,42,0.8) 70%);
+            box-shadow: 0 0 30px var(--accent-glow);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-core::before, .avatar-core::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: all 0.5s ease;
+        }
+
+        .avatar-core::before {
+            width: 140px;
+            height: 140px;
+            border-top-color: var(--accent);
+            border-bottom-color: var(--accent);
+            animation: spin 8s linear infinite;
+        }
+
+        .avatar-core::after {
+            width: 160px;
+            height: 160px;
+            border-left-color: rgba(255, 255, 255, 0.2);
+            border-right-color: rgba(255, 255, 255, 0.2);
+            animation: spin-reverse 12s linear infinite;
+        }
+
+        .avatar-container[data-state="idle"] .avatar-core {
+            background: radial-gradient(circle, #3b82f6 0%, rgba(15,23,42,0.8) 70%);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .avatar-container[data-state="listening"] .avatar-core {
+            background: radial-gradient(circle, #ef4444 0%, rgba(15,23,42,0.8) 70%);
+            box-shadow: 0 0 45px rgba(239, 68, 68, 0.8);
+            transform: scale(1.08);
+        }
+        .avatar-container[data-state="listening"] .avatar-core::before {
+            border-top-color: #ef4444;
+            border-bottom-color: #ef4444;
+            animation: spin 2s linear infinite;
+        }
+
+        .avatar-container[data-state="thinking"] .avatar-core {
+            background: radial-gradient(circle, #a855f7 0%, rgba(15,23,42,0.8) 70%);
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.8);
+        }
+        .avatar-container[data-state="thinking"] .avatar-core::before {
+            border-top-color: #a855f7;
+            border-bottom-color: #a855f7;
+            animation: spin 1s linear infinite;
+        }
+
+        .avatar-container[data-state="speaking"] .avatar-core {
+            background: radial-gradient(circle, #10b981 0%, rgba(15,23,42,0.8) 70%);
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.8);
+            animation: pulse-speaking 0.6s infinite alternate;
+        }
+        .avatar-container[data-state="speaking"] .avatar-core::before {
+            border-top-color: #10b981;
+            border-bottom-color: #10b981;
+            animation: spin 3s linear infinite;
+        }
+
+        .status-label {
+            font-size: 0.85em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .main { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
+
+        .chat-container { 
+            flex: 1; 
+            padding: 24px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+        }
+
+        .message { 
+            max-width: 75%; 
+            padding: 14px 18px; 
+            border-radius: 14px; 
+            line-height: 1.5; 
+            white-space: pre-wrap; 
+            backdrop-filter: blur(12px);
+            font-size: 0.95em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            word-break: break-word;
+        }
+
+        .user-msg { 
+            background: rgba(37, 99, 235, 0.6); 
+            align-self: flex-end; 
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-msg { 
+            background: var(--glass-bg); 
+            align-self: flex-start; 
+            border: 1px solid var(--glass-border); 
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-area { 
+            padding: 20px 24px; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex; 
+            align-items: center;
+            gap: 10px; 
+            border-top: 1px solid var(--glass-border); 
+        }
+
+        input[type="text"] { 
+            flex: 1; 
+            padding: 14px; 
+            border-radius: 10px; 
+            border: 1px solid var(--glass-border); 
+            background: rgba(2, 6, 23, 0.6); 
+            color: white; 
+            outline: none; 
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+
+        button { 
+            padding: 12px 20px; 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover { background: #2563eb; }
+
+        .btn-icon {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--glass-border);
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: rgba(51, 65, 85, 0.8);
+            border-color: var(--accent);
+        }
+
+        .btn-icon.active { 
+            background: var(--mic-active); 
+            border-color: var(--mic-active);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-handsfree {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .btn-handsfree.active {
+            background: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-danger { background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5; }
+        .btn-danger:hover { background: rgba(220, 38, 38, 0.5); color: white; }
+
+        input[type="file"] { display: none; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        @keyframes pulse-speaking {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+            100% { transform: scale(1.06); box-shadow: 0 0 60px rgba(16, 185, 129, 1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="brand-title">GLITCH OS</div>
+            <p style="color: var(--text-dim); font-size: 0.85em; margin-top: 4px;">Core Intelligence</p>
+        </div>
+
+        <div class="avatar-container" id="avatarContainer" data-state="idle">
+            <div class="avatar-core"></div>
+            <div class="status-label" id="statusLabel">Système Prêt</div>
+        </div>
+
+        <hr style="border-color: var(--glass-border);">
+
+        <button class="btn-danger" onclick="clearMemory()">Réinitialiser Mémoire</button>
+
+        <button class="btn-handsfree" id="handsfreeBtn" onclick="toggleHandsFree()">
+            🎧 Hands-Free : OFF
+        </button>
+    </div>
+
+    <div class="main">
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot-msg">Système GLITCH prêt. Active le mode Mains Libres ou clique sur l'icône de conversation pour me parler.</div>
+        </div>
+        <div class="input-area">
+            <!-- Trombone d'importation de fichiers -->
+            <label class="btn-icon" title="Joindre un fichier ou une image">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+                <input type="file" id="fileInput" onchange="uploadFile()">
+            </label>
+
+            <!-- Icône interaction/chat vocal -->
+            <button class="btn-icon" id="micBtn" onclick="toggleManualMic()" title="Démarrer le dialogue vocal">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    <path d="M8 10h.01M12 10h.01M16 10h.01"></path>
+                </svg>
+            </button>
+
+            <input type="text" id="userInput" placeholder="Écris ton message ou lance la discussion..." onkeydown="if(event.key==='Enter') sendTextMessage()">
+            <button onclick="sendTextMessage()">Envoyer</button>
+        </div>
+    </div>
+
+    <script>
+        let isHandsFree = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let audioContext = null;
+        let analyser = null;
+        let microphone = null;
+        let silenceTimer = null;
+        let isRecording = false;
+        let isProcessing = false;
+
+        const SILENCE_THRESHOLD = 6;
+        const SILENCE_DURATION = 2200;
+
+        function sanitizeText(str) {
+            if (!str) return '';
+            return str.normalize('NFC');
+        }
+
+        function setAvatarState(state, text) {
+            const avatar = document.getElementById('avatarContainer');
+            const label = document.getElementById('statusLabel');
+            avatar.setAttribute('data-state', state);
+            label.innerText = sanitizeText(text || state.toUpperCase());
+        }
+
+        async function initAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
+        }
+
+        async function toggleHandsFree() {
+            await initAudioContext();
+            const btn = document.getElementById('handsfreeBtn');
+            isHandsFree = !isHandsFree;
+
+            if (isHandsFree) {
+                btn.classList.add('active');
+                btn.textContent = '🎧 Hands-Free : ON';
+                startListeningLoop();
+            } else {
+                btn.classList.remove('active');
+                btn.textContent = '🎧 Hands-Free : OFF';
+                stopListening();
+                setAvatarState('idle', 'Système Prêt');
+            }
+        }
+
+        async function startListeningLoop() {
+            if (!isHandsFree && !isRecording) return;
+            if (isProcessing) return;
+
+            try {
+                await initAudioContext();
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) audioChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    if (microphone && microphone.mediaStream) {
+                        microphone.mediaStream.getTracks().forEach(track => track.stop());
+                    }
+                    if (audioChunks.length === 0) return;
+                    const mimeType = mediaRecorder.mimeType || 'audio/webm';
+                    const audioBlob = new Blob(audioChunks, { type: mimeType });
+                    await processAudioInput(audioBlob);
+                };
+
+                mediaRecorder.start(200);
+                isRecording = true;
+                setAvatarState('listening', 'Écoute en cours...');
+                document.getElementById('micBtn').classList.add('active');
+
+                let speakingDetected = false;
+
+                function checkAudioLevel() {
+                    if (!isRecording) return;
+                    analyser.getByteFrequencyData(dataArray);
+
+                    let sum = 0;
+                    for (let i = 0; i < bufferLength; i++) {
+                        sum += dataArray[i];
+                    }
+                    let average = sum / bufferLength;
+
+                    if (average > SILENCE_THRESHOLD) {
+                        speakingDetected = true;
+                        clearTimeout(silenceTimer);
+                        silenceTimer = null;
+                    } else if (speakingDetected && !silenceTimer) {
+                        silenceTimer = setTimeout(() => {
+                            stopRecordingAndProcess();
+                        }, SILENCE_DURATION);
+                    }
+
+                    requestAnimationFrame(checkAudioLevel);
+                }
+
+                checkAudioLevel();
+
+            } catch (err) {
+                console.error("Erreur d'accès au microphone :", err);
+                setAvatarState('idle', 'Micro Bloqué');
+                isRecording = false;
+                document.getElementById('micBtn').classList.remove('active');
+            }
+        }
+
+        function stopRecordingAndProcess() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                isRecording = false;
+                mediaRecorder.stop();
+                document.getElementById('micBtn').classList.remove('active');
+            }
+        }
+
+        function stopListening() {
+            isRecording = false;
+            clearTimeout(silenceTimer);
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            document.getElementById('micBtn').classList.remove('active');
+        }
+
+        async function toggleManualMic() {
+            await initAudioContext();
+            if (isRecording) {
+                stopRecordingAndProcess();
+            } else {
+                startListeningLoop();
+            }
+        }
+
+        async function processAudioInput(blob) {
+            isProcessing = true;
+            setAvatarState('thinking', 'Transcription...');
+
+            const formData = new FormData();
+            formData.append('file', blob, 'recording.webm');
+
+            try {
+                const transcribeRes = await fetch('/api/transcribe', {
+                    method: 'POST',
+                    body: formData
+                });
+                const transcribeData = await transcribeRes.json();
+                const userText = sanitizeText(transcribeData.texte ? transcribeData.texte.trim() : '');
+
+                if (userText) {
+                    appendMessage(userText, 'user-msg');
+                    await handleChatResponse(userText);
+                } else {
+                    setAvatarState('idle', 'Aucune voix détectée');
+                    isProcessing = false;
+                    if (isHandsFree) startListeningLoop();
+                }
+
+            } catch (err) {
+                console.error("Erreur traitement audio :", err);
+                setAvatarState('idle', 'Erreur Réseau');
+                isProcessing = false;
+                if (isHandsFree) startListeningLoop();
+            }
+        }
+
+        async function handleChatResponse(msg) {
+            setAvatarState('thinking', 'Réflexion GLITCH...');
+            const botMsgDiv = appendMessage("...", 'bot-msg');
+
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify({ message: msg })
+                });
+                const data = await res.json();
+                const cleanResponse = sanitizeText(data.response || "Aucune réponse générée.");
+                botMsgDiv.innerText = cleanResponse;
+
+                if (data.audio_url) {
+                    jouerAudio(data.audio_url, () => {
+                        isProcessing = false;
+                        if (isHandsFree) {
+                            startListeningLoop();
+                        } else {
+                            setAvatarState('idle', 'Système Prêt');
+                        }
+                    });
+                } else {
+                    isProcessing = false;
+                    setAvatarState('idle', 'Système Prêt');
+                    if (isHandsFree) startListeningLoop();
+                }
+
+            } catch (e) {
+                botMsgDiv.innerText = "Erreur de connexion au serveur.";
+                isProcessing = false;
+                setAvatarState('idle', 'Erreur Serveur');
+                if (isHandsFree) startListeningLoop();
+            }
+        }
+
+        function jouerAudio(url, onEndCallback) {
+            setAvatarState('speaking', 'Parole...');
+            
+            const cleanUrl = url + '?t=' + Date.now();
+            const audio = new Audio(cleanUrl);
+            
+            audio.onended = () => {
+                if (onEndCallback) onEndCallback();
+            };
+
+            audio.onerror = (e) => {
+                console.error("Erreur de lecture audio :", e);
+                if (onEndCallback) onEndCallback();
+            };
+
+            audio.play().catch(e => {
+                console.warn("Autoplay bloqué par le navigateur :", e);
+                if (onEndCallback) onEndCallback();
+            });
+        }
+
+        async function sendTextMessage() {
+            const input = document.getElementById('userInput');
+            const msg = sanitizeText(input.value.trim());
+            if (!msg || isProcessing) return;
+
+            input.value = '';
+            appendMessage(msg, 'user-msg');
+            isProcessing = true;
+            await handleChatResponse(msg);
+        }
+
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) return;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            const fileName = sanitizeText(fileInput.files[0].name);
+            appendMessage(`Fichier importé : ${fileName}`, 'user-msg');
+            setAvatarState('thinking', 'Analyse du fichier...');
+
+            try {
+                const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                const data = await res.json();
+                appendMessage(sanitizeText(data.apercu || "Fichier analysé avec succès."), 'bot-msg');
+            } catch (e) {
+                appendMessage("Échec de l'analyse du fichier.", 'bot-msg');
+            } finally {
+                setAvatarState('idle', 'Système Prêt');
+            }
+        }
+
+        async function clearMemory() {
+            if (confirm("Réinitialiser toute la mémoire de GLITCH ?")) {
+                await fetch('/api/memory', { method: 'DELETE' });
+                document.getElementById('chatContainer').innerHTML = '<div class="message bot-msg">Mémoire réinitialisée.</div>';
+                setAvatarState('idle', 'Mémoire Effacée');
+            }
+        }
+
+        function appendMessage(text, className) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = `message ${className}`;
+            div.innerText = sanitizeText(text);
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return div;
+        }
+    </script>
+</body>
+</html>

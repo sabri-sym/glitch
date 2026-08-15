@@ -1,0 +1,6 @@
+workspace/
+bibliotheque/*.wav
+*.onnx
+*.onnx.json
+__pycache__/
+.env

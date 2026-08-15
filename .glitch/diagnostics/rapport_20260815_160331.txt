@@ -1,0 +1,53 @@
+======================================================================
+GLITCH â€” DIAGNOSTIC INITIAL DU PROJET
+======================================================================
+
+Dossier maÃ®tre : C:\Users\HAPPY\Desktop\GLITCH
+Date : 2026-08-15T16:03:31.647317
+
+IDENTIFICATION
+----------------------------------------------------------------------
+Projet dÃ©tectÃ© comme GLITCH : True
+Score de confiance : 8/10
+
+INVENTAIRE
+----------------------------------------------------------------------
+Dossiers : 3
+Fichiers : 31
+Taille totale : 70,031,607 octets
+
+PROBLÃˆMES DÃ‰TECTÃ‰S
+----------------------------------------------------------------------
+Critiques : 1
+Avertissements : 2
+Informations : 4
+
+DÃ‰TAILS
+----------------------------------------------------------------------
+[CRITICAL] C:\Users\HAPPY\Desktop\GLITCH\project_scanner.py:1
+    invalid non-printable character U+FEFF
+[WARNING] C:\Users\HAPPY\Desktop\GLITCH\server.py
+    Le fichier utilise subprocess. GLITCH devra contrÃ´ler et journaliser les commandes systÃ¨me.
+[INFO] C:\Users\HAPPY\Desktop\GLITCH\server.py
+    URL(s) dÃ©tectÃ©e(s) directement dans le code.
+[WARNING] C:\Users\HAPPY\Desktop\GLITCH\tools.py
+    Le fichier utilise subprocess. GLITCH devra contrÃ´ler et journaliser les commandes systÃ¨me.
+[INFO] 
+    2 fichiers possÃ¨dent exactement le mÃªme contenu.
+    - prompt.txt
+    - workspace\prompt.txt
+[INFO] 
+    2 fichiers possÃ¨dent exactement le mÃªme contenu.
+    - bibliotheque\response_73664055.wav
+    - bibliotheque\response_83086d42.wav
+[INFO] 
+    5 fichiers possÃ¨dent exactement le mÃªme contenu.
+    - bibliotheque\response_77b3f812.wav
+    - bibliotheque\response_af5bfafd.wav
+    - bibliotheque\response_cbaa6149.wav
+    - bibliotheque\response_d3a86c6a.wav
+    - bibliotheque\response_f6aef908.wav
+
+======================================================================
+FIN DU DIAGNOSTIC â€” AUCUNE MODIFICATION EFFECTUÃ‰E
+======================================================================

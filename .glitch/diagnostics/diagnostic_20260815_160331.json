@@ -1,0 +1,386 @@
+{
+  "identity": {
+    "project_name": "GLITCH",
+    "root": "C:\\Users\\HAPPY\\Desktop\\GLITCH",
+    "confidence_score": 8,
+    "likely_glitch_project": true,
+    "indicators": {
+      "python_files": 4,
+      "glitch_mentions": 124,
+      "ollama_mentions": 45,
+      "agent_files": 0,
+      "config_files": 2
+    },
+    "timestamp": "2026-08-15T16:03:31.521204"
+  },
+  "scan": {
+    "scan_timestamp": "2026-08-15T16:03:31.647317",
+    "root": "C:\\Users\\HAPPY\\Desktop\\GLITCH",
+    "summary": {
+      "directories": 3,
+      "files": 31,
+      "total_size_bytes": 70031607,
+      "extensions": {
+        ".txt": 3,
+        ".onnx": 1,
+        ".json": 2,
+        ".html": 3,
+        ".py": 4,
+        ".docx": 1,
+        ".png": 2,
+        ".wav": 15
+      },
+      "problems": 7,
+      "critical": 1,
+      "warnings": 2,
+      "info": 4
+    },
+    "directories": [
+      "bibliotheque",
+      "static",
+      "workspace"
+    ],
+    "files": [
+      {
+        "path": "feuille de route 150820260122.txt",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\feuille de route 150820260122.txt",
+        "name": "feuille de route 150820260122.txt",
+        "extension": ".txt",
+        "size": 1693,
+        "modified": "2026-08-15T01:22:48.720562",
+        "sha256": "1adc7fc3e078b0555e67eabb0d8e62e72fd35561545204ccc51c7e34401fd63b"
+      },
+      {
+        "path": "fr_FR-siwis-medium.onnx",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\fr_FR-siwis-medium.onnx",
+        "name": "fr_FR-siwis-medium.onnx",
+        "extension": ".onnx",
+        "size": 63201294,
+        "modified": "2026-08-15T00:12:49.989582",
+        "sha256": "641d1ab097da2b81128c076810edb052b385decc8be3381814802a64a73baf99"
+      },
+      {
+        "path": "fr_FR-siwis-medium.onnx.json",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\fr_FR-siwis-medium.onnx.json",
+        "name": "fr_FR-siwis-medium.onnx.json",
+        "extension": ".json",
+        "size": 4875,
+        "modified": "2026-08-15T00:12:50.164167",
+        "sha256": "39479916c2db192b5ac9764daddd0c744d83e023ad890c6976c0633ae4df8959"
+      },
+      {
+        "path": "interface.html",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\interface.html",
+        "name": "interface.html",
+        "extension": ".html",
+        "size": 23156,
+        "modified": "2026-08-15T11:53:33.288962",
+        "sha256": "f72cb8051cc1ff53daf8711ea310d3dfdd861347bae7c6212e085a2f36f516f1"
+      },
+      {
+        "path": "memoire.json",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\memoire.json",
+        "name": "memoire.json",
+        "extension": ".json",
+        "size": 17840,
+        "modified": "2026-08-15T00:17:00.317899",
+        "sha256": "e4bc5e2ad1b4fb16c2c6f6677a3c954a911688fbf002cc98ee100b13c78fdc71"
+      },
+      {
+        "path": "project_scanner.py",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\project_scanner.py",
+        "name": "project_scanner.py",
+        "extension": ".py",
+        "size": 20249,
+        "modified": "2026-08-15T16:03:15.923707",
+        "sha256": "9ba5cd1c88acd3134ed199f236ea369e8ddf33c5d4af1818c5bbc2fe58d13e74"
+      },
+      {
+        "path": "PROMPT MAÎTRE GLITCH POUIOR CREER SYM.docx",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\PROMPT MAÎTRE GLITCH POUIOR CREER SYM.docx",
+        "name": "PROMPT MAÎTRE GLITCH POUIOR CREER SYM.docx",
+        "extension": ".docx",
+        "size": 30512,
+        "modified": "2026-08-15T01:24:21.744642",
+        "sha256": "5af3bad4c58af45c21cceec66e8eec2717c00eaebcd531df9418025a08d4a78e"
+      },
+      {
+        "path": "prompt.txt",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\prompt.txt",
+        "name": "prompt.txt",
+        "extension": ".txt",
+        "size": 19296,
+        "modified": "2026-08-14T21:34:58.046183",
+        "sha256": "7245a85fe23b9c1031f330fdbed6da6eb41225592066c4ddf7162a09430893ae"
+      },
+      {
+        "path": "server.py",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\server.py",
+        "name": "server.py",
+        "extension": ".py",
+        "size": 14660,
+        "modified": "2026-08-15T15:42:54.844382",
+        "sha256": "6fe90638250d5929921cd86a1c92f3ce8068cd557c762d64d2932b566fa406d3"
+      },
+      {
+        "path": "stt.py",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\stt.py",
+        "name": "stt.py",
+        "extension": ".py",
+        "size": 1514,
+        "modified": "2026-08-15T10:20:29.221718",
+        "sha256": "4d8c406cb0c4966f91e406251fda456a7b6a31a42017ea5ec501cf0db03b700f"
+      },
+      {
+        "path": "tools.py",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\tools.py",
+        "name": "tools.py",
+        "extension": ".py",
+        "size": 6179,
+        "modified": "2026-08-15T15:51:15.945733",
+        "sha256": "a126df7b6ded323610823a9ea440f078e316e1cc43e6ad3b9137f60fdc76cd15"
+      },
+      {
+        "path": "bibliotheque\\glitch.png",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\glitch.png",
+        "name": "glitch.png",
+        "extension": ".png",
+        "size": 645875,
+        "modified": "2026-08-10T22:18:20.479843",
+        "sha256": "65bbd26bcfebe7671015c05ac4e49ef515705a236540f1352205f044aff03720"
+      },
+      {
+        "path": "bibliotheque\\response.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response.wav",
+        "name": "response.wav",
+        "extension": ".wav",
+        "size": 0,
+        "modified": "2026-08-15T11:06:01.581110",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "bibliotheque\\response_0ef5b7c8.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_0ef5b7c8.wav",
+        "name": "response_0ef5b7c8.wav",
+        "extension": ".wav",
+        "size": 451116,
+        "modified": "2026-08-15T15:58:11.886994",
+        "sha256": "ed27f1cfc8ff42cc7602dcde4f69b9c18f6047af8050420ea85f951251a898bd"
+      },
+      {
+        "path": "bibliotheque\\response_52120a49.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_52120a49.wav",
+        "name": "response_52120a49.wav",
+        "extension": ".wav",
+        "size": 663596,
+        "modified": "2026-08-15T14:30:00.075142",
+        "sha256": "a5d5b8b63d0190efdf92dea2d2037630fbd7d7b089d73b2cf1784884d7b9afef"
+      },
+      {
+        "path": "bibliotheque\\response_53f12a8a.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_53f12a8a.wav",
+        "name": "response_53f12a8a.wav",
+        "extension": ".wav",
+        "size": 149036,
+        "modified": "2026-08-15T15:38:56.100225",
+        "sha256": "e023c6d60d8e88227851729f17a74fa3fb1e979d9aeb88b81774226d2d1b0b49"
+      },
+      {
+        "path": "bibliotheque\\response_5fe7ffbf.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_5fe7ffbf.wav",
+        "name": "response_5fe7ffbf.wav",
+        "extension": ".wav",
+        "size": 1611308,
+        "modified": "2026-08-15T15:55:30.910273",
+        "sha256": "01390037346b1b470cb3e0f728ad51494972f04418d5c467894cf21fc8708513"
+      },
+      {
+        "path": "bibliotheque\\response_73664055.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_73664055.wav",
+        "name": "response_73664055.wav",
+        "extension": ".wav",
+        "size": 44,
+        "modified": "2026-08-15T15:44:57.483521",
+        "sha256": "24d5db4ca2d256752cd049a330cb406196c05f4cfe8036beb309e0e4533d21de"
+      },
+      {
+        "path": "bibliotheque\\response_77b3f812.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_77b3f812.wav",
+        "name": "response_77b3f812.wav",
+        "extension": ".wav",
+        "size": 44144,
+        "modified": "2026-08-15T13:20:30.020838",
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec"
+      },
+      {
+        "path": "bibliotheque\\response_82bcc85e.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_82bcc85e.wav",
+        "name": "response_82bcc85e.wav",
+        "extension": ".wav",
+        "size": 323628,
+        "modified": "2026-08-15T15:53:43.335724",
+        "sha256": "d11fd21f868a4bd8c4d11d0899c76821df05dc8c501e6dd265a873644120e647"
+      },
+      {
+        "path": "bibliotheque\\response_83086d42.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_83086d42.wav",
+        "name": "response_83086d42.wav",
+        "extension": ".wav",
+        "size": 44,
+        "modified": "2026-08-15T15:50:20.538294",
+        "sha256": "24d5db4ca2d256752cd049a330cb406196c05f4cfe8036beb309e0e4533d21de"
+      },
+      {
+        "path": "bibliotheque\\response_af5bfafd.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_af5bfafd.wav",
+        "name": "response_af5bfafd.wav",
+        "extension": ".wav",
+        "size": 44144,
+        "modified": "2026-08-15T15:28:40.146661",
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec"
+      },
+      {
+        "path": "bibliotheque\\response_cbaa6149.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_cbaa6149.wav",
+        "name": "response_cbaa6149.wav",
+        "extension": ".wav",
+        "size": 44144,
+        "modified": "2026-08-15T13:19:25.894314",
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec"
+      },
+      {
+        "path": "bibliotheque\\response_d3a86c6a.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_d3a86c6a.wav",
+        "name": "response_d3a86c6a.wav",
+        "extension": ".wav",
+        "size": 44144,
+        "modified": "2026-08-15T13:20:10.841734",
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec"
+      },
+      {
+        "path": "bibliotheque\\response_eaf07b2b.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_eaf07b2b.wav",
+        "name": "response_eaf07b2b.wav",
+        "extension": ".wav",
+        "size": 1631788,
+        "modified": "2026-08-15T15:57:06.230256",
+        "sha256": "0400f0d74e95f98ea3cd327a1356150cd73d30117f699cc0c01341069789258a"
+      },
+      {
+        "path": "bibliotheque\\response_f6aef908.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\response_f6aef908.wav",
+        "name": "response_f6aef908.wav",
+        "extension": ".wav",
+        "size": 44144,
+        "modified": "2026-08-15T13:20:41.646743",
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec"
+      },
+      {
+        "path": "bibliotheque\\temp_input.wav",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\bibliotheque\\temp_input.wav",
+        "name": "temp_input.wav",
+        "extension": ".wav",
+        "size": 574749,
+        "modified": "2026-08-15T10:56:09.337816",
+        "sha256": "9efc792cfa49605033925e99a5b80df8c32b4d2e191fdc452733da8ea2eace71"
+      },
+      {
+        "path": "static\\index.html",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\static\\index.html",
+        "name": "index.html",
+        "extension": ".html",
+        "size": 10257,
+        "modified": "2026-08-14T23:23:48.172036",
+        "sha256": "e493618a0f1c24f4883faed1dc426ad655b03533dfe612babc351e3921b2a192"
+      },
+      {
+        "path": "workspace\\2238.png",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\workspace\\2238.png",
+        "name": "2238.png",
+        "extension": ".png",
+        "size": 383451,
+        "modified": "2026-08-14T22:38:48.644355",
+        "sha256": "8bd4b84363533b4323281621ca197a3d66ab3b1c56251f87685b6694e1ff8931"
+      },
+      {
+        "path": "workspace\\interface.html",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\workspace\\interface.html",
+        "name": "interface.html",
+        "extension": ".html",
+        "size": 5431,
+        "modified": "2026-08-14T22:37:41.299923",
+        "sha256": "d298919060f7ae0713151fef7528e6227a05c980f02febbe7a1a36bf1f51d80c"
+      },
+      {
+        "path": "workspace\\prompt.txt",
+        "absolute_path": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\workspace\\prompt.txt",
+        "name": "prompt.txt",
+        "extension": ".txt",
+        "size": 19296,
+        "modified": "2026-08-14T22:19:50.496047",
+        "sha256": "7245a85fe23b9c1031f330fdbed6da6eb41225592066c4ddf7162a09430893ae"
+      }
+    ],
+    "problems": [
+      {
+        "type": "python_syntax_error",
+        "severity": "critical",
+        "file": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\project_scanner.py",
+        "line": 1,
+        "message": "invalid non-printable character U+FEFF"
+      },
+      {
+        "type": "system_command_execution",
+        "severity": "warning",
+        "file": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\server.py",
+        "message": "Le fichier utilise subprocess. GLITCH devra contrÃ´ler et journaliser les commandes systÃ¨me."
+      },
+      {
+        "type": "hardcoded_urls",
+        "severity": "info",
+        "file": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\server.py",
+        "count": 2,
+        "message": "URL(s) dÃ©tectÃ©e(s) directement dans le code."
+      },
+      {
+        "type": "system_command_execution",
+        "severity": "warning",
+        "file": "C:\\Users\\HAPPY\\Desktop\\GLITCH\\tools.py",
+        "message": "Le fichier utilise subprocess. GLITCH devra contrÃ´ler et journaliser les commandes systÃ¨me."
+      },
+      {
+        "type": "duplicate_files",
+        "severity": "info",
+        "files": [
+          "prompt.txt",
+          "workspace\\prompt.txt"
+        ],
+        "sha256": "7245a85fe23b9c1031f330fdbed6da6eb41225592066c4ddf7162a09430893ae",
+        "message": "2 fichiers possÃ¨dent exactement le mÃªme contenu."
+      },
+      {
+        "type": "duplicate_files",
+        "severity": "info",
+        "files": [
+          "bibliotheque\\response_73664055.wav",
+          "bibliotheque\\response_83086d42.wav"
+        ],
+        "sha256": "24d5db4ca2d256752cd049a330cb406196c05f4cfe8036beb309e0e4533d21de",
+        "message": "2 fichiers possÃ¨dent exactement le mÃªme contenu."
+      },
+      {
+        "type": "duplicate_files",
+        "severity": "info",
+        "files": [
+          "bibliotheque\\response_77b3f812.wav",
+          "bibliotheque\\response_af5bfafd.wav",
+          "bibliotheque\\response_cbaa6149.wav",
+          "bibliotheque\\response_d3a86c6a.wav",
+          "bibliotheque\\response_f6aef908.wav"
+        ],
+        "sha256": "842d8ff3d950813e85a6f5cd2e3c0639ea69070ca01766ad47184befd309b8ec",
+        "message": "5 fichiers possÃ¨dent exactement le mÃªme contenu."
+      }
+    ]
+  }
+}
