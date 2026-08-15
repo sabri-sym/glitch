@@ -1,0 +1,7 @@
+Set-Content -Path requirements.txt -Value @"
+fastapi
+uvicorn
+requests
+piper-tts
+openai-whisper
+"@
