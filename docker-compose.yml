@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  glitch-server:
+    build: .
+    container_name: glitch_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./workspace:/app/workspace
+      - ./bibliotheque:/app/bibliotheque
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    restart: unless-stopped
